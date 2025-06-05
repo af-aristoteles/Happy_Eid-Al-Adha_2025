@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Qurban - Happy Eid al-Adha</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --gold: #d4af37;
+            --green: #2e8b57;
+            --cream: #f5f0e5;
+            --brown: #8d6e63;
+            --red: #b22222;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f3e6 0%, #f5e8c9 100%);
+            color: #5d4037;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .kaligrafi {
+            font-family: 'Amiri', serif;
+            font-weight: 700;
+        }
+        
+        .header {
+            background: linear-gradient(to right, var(--green), #1a5d1a);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path d="M20,20 Q40,5 50,20 T80,20 Q95,40 80,50 T80,80 Q60,95 50,80 T20,80 Q5,60 20,50 T20,20 Z" fill="%23d4af37"/></svg>');
+            background-size: 200px;
+        }
+        
+        .title {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--brown);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .eid-text {
+            font-size: 5rem;
+            font-weight: 800;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 10;
+            letter-spacing: 3px;
+        }
+        
+        .animals-container {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .animal {
+            width: 280px;
+            height: 280px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--gold);
+        }
+        
+        .animal:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .animal-icon {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .animal-name {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--green);
+            text-align: center;
+        }
+        
+        .bismillah-container {
+            text-align: center;
+            margin: 3rem 0;
+            min-height: 100px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .bismillah-text {
+            font-size: 5rem;
+            color: var(--red);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            text-shadow: 0 0 10px rgba(178, 34, 34, 0.3);
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, var(--green), #1a5d1a);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            margin-top: 1rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #1a5d1a, var(--green));
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, var(--cream), #f5e8c9);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            border: 5px solid var(--gold);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+            transform: scale(0.8);
+            transition: transform 0.5s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: var(--brown);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: var(--red);
+            transform: rotate(90deg);
+        }
+        
+        .modal h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--red);
+        }
+        
+        .modal p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--brown);
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        .floating-2 {
+            animation: floating 4s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+        
+        .floating-3 {
+            animation: floating 5s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--gold), transparent);
+            z-index: 0;
+        }
+        
+        .mosque {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 150px;
+            z-index: 1;
+        }
+        
+        .lantern {
+            position: absolute;
+            width: 40px;
+            height: 60px;
+            background: radial-gradient(circle at 20px 10px, var(--gold), #d4af37);
+            border-radius: 10px;
+            z-index: 2;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+        }
+        
+        .lantern:before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            width: 10px;
+            height: 15px;
+            background: var(--gold);
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .lantern:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 10px;
+            width: 20px;
+            height: 10px;
+            background: var(--gold);
+            border-radius: 0 0 10px 10px;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+        
+        .goat-svg {
+            fill: #8d6e63;
+        }
+        
+        .cow-svg {
+            fill: #a1887f;
+        }
+        
+        @media (max-width: 768px) {
+            .title {
+                font-size: 3rem;
+            }
+            
+            .eid-text {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .animals-container {
+                gap: 2rem;
+            }
+            
+            .animal {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .bismillah-text {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl font-bold"><i class="fas fa-mosque mr-2"></i>Virtual Qurban</h1>
+            <p class="mt-1">Berbagi Kebahagiaan di Hari Raya Idul Adha</p>
+        </div>
+    </header>
+    
+    <div class="hero">
+        <!-- Background elements -->
+        <div class="mosque">
+            <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50,150 L250,150 L250,100 L280,100 L280,70 L250,70 L250,50 L230,50 L230,30 L200,30 L200,50 L100,50 L100,30 L70,30 L70,50 L50,50 L50,70 L20,70 L20,100 L50,100 Z" fill="#8d6e63"/>
+                <rect x="140" y="30" width="20" height="40" fill="#d4af37"/>
+                <path d="M150,0 L170,30 L130,30 Z" fill="#d4af37"/>
+                <circle cx="150" cy="100" r="15" fill="#d4af37"/>
+            </svg>
+        </div>
+        
+        <div class="lantern" style="top: 15%; left: 15%;"></div>
+        <div class="lantern" style="top: 10%; right: 20%;"></div>
+        <div class="lantern" style="top: 25%; left: 25%;"></div>
+        
+        <h2 class="eid-text floating">HAPPY EID AL-ADHA</h2>
+        <h1 class="title floating-2">VIRTUAL QURBAN</h1>
+        <p class="subtitle floating-3">Pengalaman digital penuh makna untuk menghidupkan tradisi qurban dengan sentuhan modern</p>
+        
+        <div class="animals-container">
+            <div class="animal floating" id="goat">
+                <div class="animal-icon">
+                    <svg class="goat-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M70,150 Q90,130 110,130 Q130,130 150,150 L150,170 L130,170 L120,160 L110,170 L90,170 L80,160 L70,170 Z" fill="#8d6e63"/>
+                        <ellipse cx="100" cy="120" rx="30" ry="20" fill="#a1887f"/>
+                        <ellipse cx="80" cy="110" rx="10" ry="15" fill="#a1887f"/>
+                        <ellipse cx="120" cy="110" rx="10" ry="15" fill="#a1887f"/>
+                        <circle cx="85" cy="105" r="3" fill="black"/>
+                        <circle cx="115" cy="105" r="3" fill="black"/>
+                        <path d="M95,120 Q100,125 105,120" stroke="black" stroke-width="2" fill="none"/>
+                        <path d="M60,80 Q70,60 80,70 Q90,50 100,60 Q110,50 120,70 Q130,60 140,80 L140,100 Q130,90 120,95 Q110,100 100,95 Q90,100 80,95 Q70,90 60,100 Z" fill="#a1887f"/>
+                        <path d="M50,70 Q60,65 60,75 T50,85" fill="none" stroke="#5d4037" stroke-width="2"/>
+                        <path d="M150,70 Q140,65 140,75 T150,85" fill="none" stroke="#5d4037" stroke-width="2"/>
+                    </svg>
+                </div>
+                <h2 class="animal-name">KAMBING QURBAN</h2>
+            </div>
+            
+            <div class="animal floating-2" id="cow">
+                <div class="animal-icon">
+                    <svg class="cow-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="70" y="140" width="60" height="30" rx="5" fill="#8d6e63"/>
+                        <ellipse cx="100" cy="120" rx="40" ry="25" fill="#a1887f"/>
+                        <ellipse cx="75" cy="110" rx="15" ry="20" fill="#a1887f"/>
+                        <ellipse cx="125" cy="110" rx="15" ry="20" fill="#a1887f"/>
+                        <circle cx="80" cy="105" r="4" fill="black"/>
+                        <circle cx="120" cy="105" r="4" fill="black"/>
+                        <path d="M95,120 Q100,130 105,120" stroke="black" stroke-width="2" fill="none"/>
+                        <path d="M50,80 Q70,50 90,60 Q110,40 130,60 Q150,50 170,80 L170,110 Q150,90 130,100 Q110,110 90,100 Q70,90 50,110 Z" fill="#a1887f"/>
+                        <rect x="65" y="150" width="10" height="20" fill="#5d4037"/>
+                        <rect x="85" y="150" width="10" height="20" fill="#5d4037"/>
+                        <rect x="105" y="150" width="10" height="20" fill="#5d4037"/>
+                        <rect x="125" y="150" width="10" height="20" fill="#5d4037"/>
+                        <path d="M40,70 Q50,65 50,75 T40,85" fill="none" stroke="#5d4037" stroke-width="2"/>
+                        <path d="M160,70 Q150,65 150,75 T160,85" fill="none" stroke="#5d4037" stroke-width="2"/>
+                    </svg>
+                </div>
+                <h2 class="animal-name">SAPI QURBAN</h2>
+            </div>
+        </div>
+        
+        <div class="bismillah-container">
+            <div class="bismillah-text kaligrafi" id="bismillah">﷽</div>
+        </div>
+        
+        <button class="btn floating-3" id="send-btn">
+            <i class="fas fa-paper-plane mr-2"></i> KIRIM BERKAH
+        </button>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-modal"><i class="fas fa-times"></i></span>
+            <h2>QURBAN DITERIMA!</h2>
+            <div class="kaligrafi my-6" style="font-size: 4rem; color: #b22222;">﷽</div>
+            <p>Selamat Hari Raya Idul Adha 1445 H</p>
+            <p class="mt-4">Semoga ibadah qurban Anda diterima oleh Allah SWT dan menjadi amal jariyah yang terus mengalirkan pahala.</p>
+            <p class="mt-4 italic">"Maka dirikanlah shalat karena Tuhanmu; dan berqurbanlah."</p>
+            <p class="mt-2">(QS. Al-Kautsar: 2)</p>
+            <div class="mt-6 text-4xl text-green-600">
+                <i class="fas fa-hands-praying"></i>
+                <span class="ml-2">Taqabbalallahu Minna Wa Minkum</span>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-green-800 text-white py-6 mt-10">
+        <div class="container mx-auto text-center">
+            <p>Virtual Qurban - Berbagi Kebaikan di Hari Raya Idul Adha 1445 H</p>
+            <div class="mt-2 flex justify-center space-x-4">
+                <!-- <a href="#" class="text-2xl"><i class="fab fa-facebook"></i></a> -->
+                <a href="https://www.instagram.com/_immortalclass?igsh=MWdxNml5Nmo2aWY5dg==" class="text-2xl" target="_blank"><i class="fab fa-instagram"></i></a>
+                <!-- <a href="#" class="text-2xl"><i class="fab fa-twitter"></i></a> -->
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create floating particles
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 100 + 50;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.opacity = Math.random() * 0.1 + 0.05;
+                document.body.appendChild(particle);
+            }
+            
+            // Elements
+            const animals = document.querySelectorAll('.animal');
+            const bismillah = document.getElementById('bismillah');
+            const sendBtn = document.getElementById('send-btn');
+            const modal = document.getElementById('modal');
+            const closeModal = document.getElementById('close-modal');
+            
+            // Animal click animation
+            animals.forEach(animal => {
+                animal.addEventListener('click', function() {
+                    // Animal animation
+                    gsap.to(animal, {
+                        duration: 0.5,
+                        y: -20,
+                        rotation: 5,
+                        repeat: 1,
+                        yoyo: true,
+                        ease: "power2.inOut"
+                    });
+                    
+                    // Bismillah animation
+                    gsap.to(bismillah, {
+                        duration: 1,
+                        opacity: 1,
+                        y: 0,
+                        scale: 1.5,
+                        color: '#b22222',
+                        ease: "elastic.out(1, 0.5)",
+                        onComplete: function() {
+                            gsap.to(bismillah, {
+                                duration: 2,
+                                scale: 1,
+                                delay: 1
+                            });
+                        }
+                    });
+                });
+            });
+            
+            // Send button click
+            sendBtn.addEventListener('click', function() {
+                modal.classList.add('active');
+            });
+            
+            // Close modal
+            closeModal.addEventListener('click', function() {
+                modal.classList.remove('active');
+            });
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+            
+            // Initial animations
+            gsap.from('.eid-text', {
+                duration: 1.5,
+                y: -50,
+                opacity: 0,
+                ease: "bounce.out"
+            });
+            
+            gsap.from('.title', {
+                duration: 1,
+                y: -30,
+                opacity: 0,
+                delay: 0.5,
+                ease: "power2.out"
+            });
+            
+            gsap.from('.subtitle', {
+                duration: 1,
+                opacity: 0,
+                delay: 1,
+                ease: "power2.out"
+            });
+            
+            gsap.from('.animal', {
+                duration: 1,
+                y: 100,
+                opacity: 0,
+                stagger: 0.3,
+                delay: 1.5,
+                ease: "power2.out"
+            });
+            
+            gsap.from('.btn', {
+                duration: 1,
+                y: 50,
+                opacity: 0,
+                delay: 2,
+                ease: "power2.out"
+            });
+        });
+    </script>
+</body>
+</html>
